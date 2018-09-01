@@ -1,8 +1,9 @@
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Blog</a>
+        <a href="{% url 'home' %}" class="brand-logo">Blog</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'articles:article-list' %}">Articles</a></li>
         </ul>
     </div>
 </nav>
