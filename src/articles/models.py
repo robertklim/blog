@@ -1,8 +1,9 @@
 from django.db import models
+from django.utils.text import slugify
 
 class Article(models.Model):
     title       = models.CharField(max_length=128)
-    slug        = models.SlugField()
+    slug        = models.SlugField(unique=True, blank=True)
     body        = models.TextField()
     timestamp   = models.DateTimeField(auto_now_add=True)
     updated     = models.DateTimeField(auto_now=True)
@@ -12,3 +13,7 @@ class Article(models.Model):
 
     def snippet(self):
         return self.body[:50] + '...'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Article, self).save(*args, **kwargs)
