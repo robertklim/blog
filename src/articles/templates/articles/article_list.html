@@ -3,7 +3,7 @@
 <div class="articles">
     {% for obj in object_list %}
         <div class="article">
-            <h5><a href="#">{{ obj.title }}</a></h5>
+            <h5><a href="{% url 'articles:article-detail' slug=obj.slug %}">{{ obj.title }}</a></h5>
             <p>{{ obj.snippet }}</p>
             <p>{{ obj.timestamp }}</p>
         </div>
