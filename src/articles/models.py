@@ -7,6 +7,7 @@ class Article(models.Model):
     body        = models.TextField()
     timestamp   = models.DateTimeField(auto_now_add=True)
     updated     = models.DateTimeField(auto_now=True)
+    thumbnail   = models.ImageField(default='default.jpg', blank=True)
 
     def __str__(self):
         return self.title
