@@ -9,6 +9,12 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     form_class = ArticleCreateForm
     template_name = 'articles/article_create_form.html'
 
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        # Now I can customize form
+        instance.author = self.request.user
+        return super(ArticleCreateView, self).form_valid(form)
+
 class ArticleDetailView(DetailView):
     def get_queryset(self):
         return Article.objects.all()
