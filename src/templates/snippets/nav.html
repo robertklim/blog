@@ -4,9 +4,13 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'articles:article-list' %}">Articles</a></li>
-            <li><a href="{% url 'articles:article-create' %}">New article</a></li>
-            <li><a href="{% url 'accounts:account-login' %}">Login</a></li>
-            <li><a href="{% url 'accounts:account-logout' %}">Logout</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'articles:article-create' %}">New article</a></li>
+                <li><a href="{% url 'accounts:account-logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:account-login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:account-create' %}">Register</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>
