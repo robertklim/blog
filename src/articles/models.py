@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 from django.utils.text import slugify
 
 class Article(models.Model):
@@ -19,3 +20,6 @@ class Article(models.Model):
         if self.slug is None:
             self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse_lazy('articles:article-list')
