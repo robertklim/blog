@@ -1,8 +1,8 @@
-from django import forms
+from django.forms import ModelForm, TextInput
 
 from .models import Article
 
-class ArticleCreateForm(forms.ModelForm):
+class ArticleCreateForm(ModelForm):
     class Meta:
         model = Article
         fields = [
@@ -11,3 +11,8 @@ class ArticleCreateForm(forms.ModelForm):
             'body',
             'thumbnail',
         ]
+        widgets = {
+            'slug': TextInput(attrs={
+                'placeholder': 'Leave blank to generate slug automatically',
+            }),
+        }
