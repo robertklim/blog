@@ -17,6 +17,9 @@
             </p>
         </div>
         <div class="card-action">
+            {% if user.is_authenticated and user.username == object.author.username %}
+                <a href="{% url 'articles:article-edit' slug=object.slug %}">Edit</a>
+            {% endif %}
             <a href="{% url 'articles:article-list' %}">Go back</a>
         </div>
     </div>
