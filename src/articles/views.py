@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import (
-    CreateView, 
-    DetailView, 
+    CreateView,
+    DeleteView,
+    DetailView,
     ListView,
     UpdateView,
 )
@@ -19,6 +21,13 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
         # Now I can customize form
         instance.author = self.request.user
         return super(ArticleCreateView, self).form_valid(form)
+
+class ArticleDeleteView(DeleteView):
+    model = Article
+    success_url = reverse_lazy('articles:article-list')
+
+    def get_queryset(self):
+        return Article.objects.filter(author=self.request.user)
 
 class ArticleDetailView(DetailView):
     def get_queryset(self):
