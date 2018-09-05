@@ -13,7 +13,7 @@
             <p class="article-paragraph">{{ object.body }}</p>
             <p>
                 <br>
-                {{ object.author }} on {{ object.timestamp }}
+                {{ object.author }} on {{ object.timestamp|date:'F d, Y' }}
             </p>
         </div>
         <div class="card-action">

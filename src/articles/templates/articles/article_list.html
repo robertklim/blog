@@ -14,7 +14,7 @@
                 <p class="article-paragraph">{{ obj.snippet }}</p>
                 <p>
                     <small>
-                        {{ obj.author }} on {{ obj.timestamp }}
+                        {{ obj.author }} on {{ obj.timestamp|date:'F d, Y' }}
                     </small>
                 </p>
             </div>
