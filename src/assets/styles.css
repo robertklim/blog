@@ -12,3 +12,8 @@
     min-height: 300px;
     background-size: cover;
 }
+
+.body-textarea {
+    height: 20vh;
+    max-width: 100%;
+}

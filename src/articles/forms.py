@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, Textarea, TextInput
 
 from .models import Article
 
@@ -14,5 +14,8 @@ class ArticleCreateForm(ModelForm):
         widgets = {
             'slug': TextInput(attrs={
                 'placeholder': 'Leave blank to generate slug automatically',
+            }),
+            'body': Textarea(attrs={
+                'class': 'body-textarea',
             }),
         }
