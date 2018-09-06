@@ -1,13 +1,18 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="account">
-    <div class="card">
-        <div class="card-content">
-            <p class="article-paragraph">Username: {{ user.username }}</p>
-            <p class="article-paragraph">E-mail: {{ user.email }}</p>
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="{{ user.profile.image.url }}">
         </div>
-        <div class="card-action">
-            <a href="{% url 'articles:article-list' %}">Home page</a>
+        <div class="card-stacked">
+            <div class="card-content">
+                <p class="article-paragraph">Username: {{ user.username }}</p>
+                <p class="article-paragraph">E-mail: {{ user.email }}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'articles:article-list' %}">Home page</a>
+            </div>
         </div>
     </div>
 </div>
