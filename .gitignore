@@ -134,4 +134,7 @@ Press h to open a hovercard with more details.
 #static_cdn - Emulate external static files source
 static_cdn/
 
-media/
+profile_images/*
+!profile_images/.gitkeep
+thumbnail_images/*
+!thumbnail_images/.gitkeep
