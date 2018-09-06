@@ -11,7 +11,7 @@ class Article(models.Model):
     body        = models.TextField()
     timestamp   = models.DateTimeField(auto_now_add=True)
     updated     = models.DateTimeField(auto_now=True)
-    thumbnail   = models.ImageField(default='default.jpg', blank=True)
+    thumbnail   = models.ImageField(default='default_thumbnail.jpg', blank=True, upload_to='thumbnail_images')
     author      = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
     def __str__(self):
