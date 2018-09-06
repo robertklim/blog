@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="account">
+    <div class="card">
+        <div class="card-content">
+            <p class="article-paragraph">Username: {{ user.username }}</p>
+            <p class="article-paragraph">E-mail: {{ user.email }}</p>
+        </div>
+        <div class="card-action">
+            <a href="{% url 'articles:article-list' %}">Home page</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
