@@ -133,3 +133,5 @@ Press h to open a hovercard with more details.
 
 #static_cdn - Emulate external static files source
 static_cdn/
+
+media/
