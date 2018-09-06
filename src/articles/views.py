@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -12,9 +13,10 @@ from django.views.generic import (
 from .forms import ArticleCreateForm
 from .models import Article
 
-class ArticleCreateView(LoginRequiredMixin, CreateView):
+class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form_class = ArticleCreateForm
     template_name = 'articles/article_create_form.html'
+    success_message = 'New article created!'
 
     def form_valid(self, form):
         instance = form.save(commit=False)
@@ -37,9 +39,10 @@ class ArticleListView(ListView):
     def get_queryset(self):
         return Article.objects.all()
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(SuccessMessageMixin, UpdateView):
     form_class = ArticleCreateForm
     template_name = 'articles/article_update_form.html'
+    success_message = '%(title)s article updated!'
 
     def get_queryset(self):
         return Article.objects.filter(author=self.request.user)
