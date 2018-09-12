@@ -1,30 +1,32 @@
 {% extends 'base.html' %} {% block content %}
 
+<h4>Articles by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h4>
+
 <div class="articles">
     {% for obj in object_list %}
-        <div class="card">
-            <div class="card-image">
-                <div class="thumbnail" style="background-image: url('{{ obj.thumbnail.url }}')">
-                    <span class="card-title">
-                        {{ obj.title }}
-                    </span>
-                </div>
-            </div>
-            <div class="card-content">
-                <p class="article-paragraph">{{ obj.snippet }}</p>
-                <p>
-                    <small>
-                        <a href="{% url 'articles:user-article-list' username=obj.author.username %}">
-                            {{ obj.author }}
-                        </a> 
-                        on {{ obj.timestamp|date:'F d, Y' }}
-                    </small>
-                </p>
-            </div>
-            <div class="card-action">
-                <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>
+    <div class="card">
+        <div class="card-image">
+            <div class="thumbnail" style="background-image: url('{{ obj.thumbnail.url }}')">
+                <span class="card-title">
+                    {{ obj.title }}
+                </span>
             </div>
         </div>
+        <div class="card-content">
+            <p class="article-paragraph">{{ obj.snippet }}</p>
+            <p>
+                <small>
+                    <a href="{% url 'articles:user-article-list' username=obj.author.username %}">
+                        {{ obj.author }}
+                    </a>
+                    on {{ obj.timestamp|date:'F d, Y' }}
+                </small>
+            </p>
+        </div>
+        <div class="card-action">
+            <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>
+        </div>
+    </div>
     {% endfor %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
@@ -34,7 +36,7 @@
         {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
                 <a href="?page={{ num }}" class="btn-small waves-effect waves-light disabled">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} 
                 <a href="?page={{ num }}" class="btn-small waves-effect waves-light">{{ num }}</a>
             {% endif %}
         {% endfor %}

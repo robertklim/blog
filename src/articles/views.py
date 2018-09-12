@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -44,8 +45,17 @@ class ArticleDetailView(DetailView):
 
 class ArticleListView(ListView):
     paginate_by = 5
+
     def get_queryset(self):
         return Article.objects.all()
+
+class UserArticleListView(ListView):
+    template_name = 'articles/user_article_list.html'
+    paginate_by = 5
+    
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Article.objects.filter(author=user)
 
 class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Article
