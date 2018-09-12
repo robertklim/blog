@@ -24,7 +24,8 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         instance.author = self.request.user
         return super(ArticleCreateView, self).form_valid(form)
 
-class ArticleDeleteView(DeleteView):
+
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('articles:article-list')
 
@@ -39,7 +40,7 @@ class ArticleListView(ListView):
     def get_queryset(self):
         return Article.objects.all()
 
-class ArticleUpdateView(SuccessMessageMixin, UpdateView):
+class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = ArticleCreateForm
     template_name = 'articles/article_update_form.html'
     success_message = '%(title)s article updated!'
