@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -25,12 +25,18 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return super(ArticleCreateView, self).form_valid(form)
 
 
-class ArticleDeleteView(LoginRequiredMixin, DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('articles:article-list')
 
-    def get_queryset(self):
-        return Article.objects.filter(author=self.request.user)
+    def test_func(self):
+        article = self.get_object()
+        if self.request.user == article.author:
+            return True
+        return False
+
+    # def get_queryset(self):
+    #     return Article.objects.filter(author=self.request.user)
 
 class ArticleDetailView(DetailView):
     def get_queryset(self):
@@ -40,10 +46,17 @@ class ArticleListView(ListView):
     def get_queryset(self):
         return Article.objects.all()
 
-class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Article
     form_class = ArticleCreateForm
     template_name = 'articles/article_update_form.html'
     success_message = '%(title)s article updated!'
 
-    def get_queryset(self):
-        return Article.objects.filter(author=self.request.user)
+    def test_func(self):
+        article = self.get_object()
+        if self.request.user == article.author:
+            return True
+        return False
+
+    # def get_queryset(self):
+    #     return Article.objects.filter(author=self.request.user)
