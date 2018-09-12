@@ -26,7 +26,7 @@ class Article(models.Model):
         super(Article, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse_lazy('articles:article-list')
+        return reverse_lazy('articles:article-detail', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['-timestamp']
