@@ -7,6 +7,10 @@
         <i class="material-icons left">delete</i>
         DELETE
     </button>
+    <a class="btn-large waves-effect waves-light right grey" href="{% url 'articles:article-detail' object.slug %}">
+        <i class="material-icons left">cancel</i>
+        CANCEL
+    </a>
 </form>
 
 {% endblock content %}
