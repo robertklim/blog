@@ -43,6 +43,7 @@ class ArticleDetailView(DetailView):
         return Article.objects.all()
 
 class ArticleListView(ListView):
+    paginate_by = 5
     def get_queryset(self):
         return Article.objects.all()
 
