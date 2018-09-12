@@ -1,12 +1,25 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, View
+from django.views.generic import (
+    CreateView, 
+    DetailView,
+    UpdateView, 
+    View,
+)
 
-from .forms import AccountCreateForm
+from .forms import (
+    AccountCreateForm,
+    AccountUpdateForm,
+    ProfileUpdateForm,
+)
+
+from .models import Profile
 
 class AccountCreateView(SuccessMessageMixin, CreateView):
     form_class = AccountCreateForm
@@ -27,3 +40,25 @@ class AccountLoginView(LoginView):
 
 class AccountLogoutView(LogoutView):
     template_name = 'accounts/account_post_logout.html'
+
+@login_required
+def profile_edit(request):
+    if request.method == 'POST':
+        acc_form = AccountUpdateForm(request.POST, instance=request.user)
+        prof_form = ProfileUpdateForm(request.POST, request.FILES,  instance=request.user.profile)
+        if acc_form.is_valid() and prof_form.is_valid():
+            acc_form.save()
+            prof_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('accounts:account-profile')
+    else:
+        acc_form = AccountUpdateForm(instance=request.user)
+        prof_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'acc_form': acc_form,
+        'prof_form': prof_form,
+    }
+
+    return render(request, 'accounts/account_update_form.html', context)
+
