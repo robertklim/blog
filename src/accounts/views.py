@@ -2,7 +2,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import (
+    LoginView, 
+    LogoutView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetView,
+)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -40,6 +46,15 @@ class AccountLoginView(LoginView):
 
 class AccountLogoutView(LogoutView):
     template_name = 'accounts/account_post_logout.html'
+
+class AccountPasswordResetView(PasswordResetView):
+    template_name = 'accounts/password_reset.html'
+
+class AccountPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'accounts/password_reset_done.html'
+
+class AccountPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'accounts/password_reset_confirm.html'
 
 @login_required
 def profile_edit(request):
