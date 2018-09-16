@@ -1,4 +1,4 @@
-from accounts.views import AccountPasswordResetConfirmView
+from accounts.views import AccountPasswordResetCompleteView, AccountPasswordResetConfirmView
 from articles.views import ArticleListView
 
 from django.conf import settings
@@ -15,6 +15,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('articles/', include('articles.urls', namespace='articles')),
     path('password-reset-confirm/<uidb64>/<token>/', AccountPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password-reset-complete/', AccountPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
 
 if settings.DEBUG:

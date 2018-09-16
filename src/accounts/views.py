@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import (
     LoginView, 
     LogoutView,
+    PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
@@ -46,6 +47,9 @@ class AccountLoginView(LoginView):
 
 class AccountLogoutView(LogoutView):
     template_name = 'accounts/account_post_logout.html'
+
+class AccountPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'accounts/password_reset_complete.html'
 
 class AccountPasswordResetView(PasswordResetView):
     template_name = 'accounts/password_reset.html'
