@@ -22,7 +22,7 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/', AccountPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset-complete/', AccountPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('password-reset/', AccountPasswordResetView.as_view(), name='account-password-reset'),
-    path('password-reset/done/', AccountPasswordResetDoneView.as_view(), name='account-password-reset-done'),
+    path('password-reset/done/', AccountPasswordResetDoneView.as_view(), name='password_reset_done'),
 ]
 
 if settings.DEBUG:
