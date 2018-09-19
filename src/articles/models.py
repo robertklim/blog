@@ -1,3 +1,6 @@
+import os
+from os.path import basename
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse_lazy
@@ -21,6 +24,9 @@ class Article(models.Model):
         return self.body[:300] + '...'
 
     def save(self, *args, **kwargs):
+        old_thumbnail = Article.objects.get(pk=self.pk).thumbnail
+        if (basename(old_thumbnail.name) != basename(self.thumbnail.name) and basename(old_thumbnail.name) != Article._meta.get_field('thumbnail').default):
+            os.remove(os.path.join(settings.MEDIA_ROOT, old_thumbnail.name))
         if self.slug is None:
             self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
