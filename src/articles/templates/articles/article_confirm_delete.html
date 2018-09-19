@@ -2,15 +2,21 @@
 
 <form action="" method="POST">
     {% csrf_token %}
-    <p>Are you sure you want to delete article: "{{ object }}"?</p>
-    <button type="submit" class="btn-large waves-effect waves-light left red">
-        <i class="material-icons left">delete</i>
-        DELETE
-    </button>
-    <a class="btn-large waves-effect waves-light right grey" href="{% url 'articles:article-detail' object.slug %}">
-        <i class="material-icons left">cancel</i>
-        CANCEL
-    </a>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Delete article</span>
+            <p>Are you sure you want to delete article: "{{ object }}"?</p>
+            <br>
+            <button type="submit" class="btn-large waves-effect waves-light left red">
+                <i class="material-icons left">delete</i>
+                DELETE
+            </button>
+            <a class="btn-large waves-effect waves-light right grey" href="{% url 'articles:article-detail' object.slug %}">
+                <i class="material-icons left">cancel</i>
+                CANCEL
+            </a>
+        </div>
+    </div>
 </form>
 
 {% endblock content %}
