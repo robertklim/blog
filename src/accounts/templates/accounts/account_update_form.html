@@ -1,12 +1,18 @@
 {% extends 'base.html' %} {% block content %}
 
 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %} 
-    {{ acc_form.as_p }}
-    {{ prof_form.as_p }}
-    <button type="submit" class="btn-large waves-effect waves-light left">
-        <i class="material-icons left">edit</i>
-        Update
-    </button>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Edit profile</span>
+            {{ acc_form.as_p }}
+            {{ prof_form.as_p }}
+            <br>
+            <button type="submit" class="btn-large waves-effect waves-light left">
+                <i class="material-icons left">save</i>
+                Update
+            </button>
+        </div>
+    </div>
 </form>
 
 {% endblock content %}
