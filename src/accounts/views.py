@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import (
     LoginView, 
     LogoutView,
+    PasswordChangeView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
@@ -47,6 +48,12 @@ class AccountLoginView(LoginView):
 
 class AccountLogoutView(LogoutView):
     template_name = 'accounts/account_post_logout.html'
+
+
+class AccountPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'accounts/password_change_form.html'
+    success_url = reverse_lazy('accounts:account-profile')
+    success_message = 'Your password has been changed!'
 
 class AccountPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'accounts/password_reset_complete.html'

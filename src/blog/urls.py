@@ -1,4 +1,5 @@
 from accounts.views import (
+    AccountPasswordChangeView,
     AccountPasswordResetCompleteView,
     AccountPasswordResetConfirmView,
     AccountPasswordResetDoneView,
@@ -19,6 +20,7 @@ urlpatterns = [
     path('', ArticleListView.as_view(), name='home'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('articles/', include('articles.urls', namespace='articles')),
+    path('password-change/', AccountPasswordChangeView.as_view(), name='password_change'),
     path('password-reset-confirm/<uidb64>/<token>/', AccountPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('password-reset-complete/', AccountPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('password-reset/', AccountPasswordResetView.as_view(), name='account-password-reset'),
