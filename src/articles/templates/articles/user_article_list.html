@@ -14,14 +14,7 @@
         </div>
         <div class="card-content">
             <p class="article-paragraph">{{ obj.snippet }}</p>
-            <p>
-                <small>
-                    <a href="{% url 'articles:user-article-list' username=obj.author.username %}">
-                        {{ obj.author }}
-                    </a>
-                    on {{ obj.timestamp|date:'F d, Y' }}
-                </small>
-            </p>
+            {% include 'snippets/author_chip.html' %}
         </div>
         <div class="card-action">
             <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>
@@ -29,21 +22,7 @@
     </div>
     {% endfor %}
     {% if is_paginated %}
-        {% if page_obj.has_previous %}
-            <a href="?page=1" class="btn-small waves-effect waves-light">First</a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="btn-small waves-effect waves-light">Previous</a>
-        {% endif %}
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <a href="?page={{ num }}" class="btn-small waves-effect waves-light disabled">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} 
-                <a href="?page={{ num }}" class="btn-small waves-effect waves-light">{{ num }}</a>
-            {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="btn-small waves-effect waves-light">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn-small waves-effect waves-light">Last</a>
-        {% endif %}
+        {% include 'snippets/pagination.html' %}
     {% endif %}
 </div>
 
