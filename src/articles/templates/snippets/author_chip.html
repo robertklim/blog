@@ -1,0 +1,4 @@
+<div class="chip">
+    <img src="{{ obj.author.profile.image.url }}" alt="Author">
+    <a href="{% url 'articles:user-article-list' username=obj.author.username %}">{{ obj.author }}</a> on {{ obj.timestamp|date:'F d, Y' }}
+</div>

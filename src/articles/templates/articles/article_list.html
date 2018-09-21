@@ -12,14 +12,7 @@
             </div>
             <div class="card-content">
                 <p class="article-paragraph">{{ obj.snippet }}</p>
-                <p>
-                    <small>
-                        <a href="{% url 'articles:user-article-list' username=obj.author.username %}">
-                            {{ obj.author }}
-                        </a> 
-                        on {{ obj.timestamp|date:'F d, Y' }}
-                    </small>
-                </p>
+                {% include 'snippets/author_chip.html' %}
             </div>
             <div class="card-action">
                 <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>

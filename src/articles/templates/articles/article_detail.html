@@ -11,10 +11,7 @@
         </div>
         <div class="card-content">
             <p class="article-paragraph">{{ object.body }}</p>
-            <p>
-                <br>
-                {{ object.author }} on {{ object.timestamp|date:'F d, Y' }}
-            </p>
+            {% include 'snippets/author_chip.html' with obj=object %}
         </div>
         <div class="card-action">
             <a href="{% url 'articles:article-list' %}">Go back</a>

@@ -17,3 +17,15 @@
     height: 20vh;
     max-width: 100%;
 }
+
+.chip {
+    margin-top: 20px;
+}
+
+.chip > img {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
