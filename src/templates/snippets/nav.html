@@ -1,7 +1,20 @@
 <nav>
     <div class="nav-wrapper">
         <a href="{% url 'home' %}" class="brand-logo">Blog</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'articles:article-list' %}">Articles</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'articles:article-create' %}">New article</a></li>
+                <li><a href="{% url 'accounts:account-profile' %}">Profile</a></li>
+                <li><a href="{% url 'accounts:account-logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:account-login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:account-create' %}">Register</a></li>
+            {% endif %}
+        </ul>
+        <ul class="sidenav" id="mobile-demo">
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'articles:article-list' %}">Articles</a></li>
             {% if user.is_authenticated %}
