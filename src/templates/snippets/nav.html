@@ -3,27 +3,27 @@
         <a href="{% url 'home' %}" class="brand-logo">Blog</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'articles:article-list' %}">Articles</a></li>
+            <li><a href="{% url 'home' %}"><i class="material-icons left">home</i>Home</a></li>
+            <li><a href="{% url 'articles:article-list' %}"><i class="material-icons left">list</i>Articles</a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'articles:article-create' %}">New article</a></li>
-                <li><a href="{% url 'accounts:account-profile' %}">Profile</a></li>
-                <li><a href="{% url 'accounts:account-logout' %}">Logout</a></li>
+                <li><a href="{% url 'articles:article-create' %}"><i class="material-icons left">create</i>New article</a></li>
+                <li><a href="{% url 'accounts:account-profile' %}"><i class="material-icons left">account_circle</i>Profile</a></li>
+                <li><a href="{% url 'accounts:account-logout' %}"><i class="material-icons left">exit_to_app</i>Logout</a></li>
             {% else %}
-                <li><a href="{% url 'accounts:account-login' %}">Login</a></li>
-                <li><a href="{% url 'accounts:account-create' %}">Register</a></li>
+                <li><a href="{% url 'accounts:account-login' %}"><i class="material-icons left">input</i>Login</a></li>
+                <li><a href="{% url 'accounts:account-create' %}"><i class="material-icons left">person_add</i>Register</a></li>
             {% endif %}
         </ul>
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'articles:article-list' %}">Articles</a></li>
+            <li><a href="{% url 'home' %}"><i class="material-icons left">home</i>Home</a></li>
+            <li><a href="{% url 'articles:article-list' %}"><i class="material-icons left">list</i>Articles</a></li>
             {% if user.is_authenticated %}
-                <li><a href="{% url 'articles:article-create' %}">New article</a></li>
-                <li><a href="{% url 'accounts:account-profile' %}">Profile</a></li>
-                <li><a href="{% url 'accounts:account-logout' %}">Logout</a></li>
+                <li><a href="{% url 'articles:article-create' %}"><i class="material-icons left">create</i>New article</a></li>
+                <li><a href="{% url 'accounts:account-profile' %}"><i class="material-icons left">account_circle</i>Profile</a></li>
+                <li><a href="{% url 'accounts:account-logout' %}"><i class="material-icons left">exit_to_app</i>Logout</a></li>
             {% else %}
-                <li><a href="{% url 'accounts:account-login' %}">Login</a></li>
-                <li><a href="{% url 'accounts:account-create' %}">Register</a></li>
+                <li><a href="{% url 'accounts:account-login' %}"><i class="material-icons left">input</i>Login</a></li>
+                <li><a href="{% url 'accounts:account-create' %}"><i class="material-icons left">person_add</i>Register</a></li>
             {% endif %}
         </ul>
     </div>
