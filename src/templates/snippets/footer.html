@@ -1,0 +1,31 @@
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="{% url 'home' %}">Home</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{% url 'articles:article-list' %}">Articles</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="grey-text text-lighten-3" href="{% url 'articles:article-create' %}">New article</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{% url 'accounts:account-profile' %}">Profile</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{% url 'accounts:account-logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a class="grey-text text-lighten-3" href="{% url 'accounts:account-login' %}">Login</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{% url 'accounts:account-create' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2018 <a class="grey-text text-lighten-4" href="https://robertklim.com/">RobertKlim.com</a>
+            <a class="grey-text text-lighten-4 right" href="https://www.djangoproject.com/">Django</a>
+        </div>
+    </div>
+</footer>
