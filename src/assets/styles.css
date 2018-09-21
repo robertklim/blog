@@ -43,3 +43,7 @@ main {
     width: 32px;
     border-radius: 50%;
 }
+
+.prefix {
+    top: 0rem !important;
+}

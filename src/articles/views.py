@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -10,9 +11,12 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+from functools import reduce
 
 from .forms import ArticleCreateForm
 from .models import Article
+
+import operator
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form_class = ArticleCreateForm
@@ -48,6 +52,25 @@ class ArticleListView(ListView):
 
     def get_queryset(self):
         return Article.objects.all()
+
+class ArticleSearchListView(ArticleListView):
+    def get_queryset(self):
+        result = super(ArticleSearchListView, self).get_queryset()
+        
+        query = self.request.GET.get('q')
+        if not query:
+            query = self.kwargs.get('q')
+        
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Q(title__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(body__icontains=q) for q in query_list))
+            )
+        
+        return result
 
 class UserArticleListView(ListView):
     template_name = 'articles/user_article_list.html'
