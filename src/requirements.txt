@@ -1,2 +1,4 @@
 Django>=2.0
 Pillow
+djangorestframework
+djangorestframework-jwt
