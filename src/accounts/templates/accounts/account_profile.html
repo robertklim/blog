@@ -7,11 +7,23 @@
         </div>
         <div class="card-stacked">
             <div class="card-content">
-                <p class="article-paragraph">Username: {{ user.username }}</p>
-                <p class="article-paragraph">E-mail: {{ user.email }}</p>
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <h5>Your profile info</h5>
+                    </li>
+                    <li class="collection-item">
+                        Username: {{ user.username }}
+                    </li>
+                    <li class="collection-item">
+                        E-mail: {{ user.email }}
+                    </li>
+                    <li class="collection-item">
+                        Number of your articles: <a href="{% url 'articles:user-article-list' username=user.username %}">{{user.profile.sum_user_articles }}</a>
+                    </li>
+                </ul>
             </div>
             <div class="card-action">
-                <a href="{% url 'articles:article-list' %}">Home page</a>
+                <a href="{% url 'articles:article-list' %}">Articles</a>
                 <a href="{% url 'accounts:account-edit' %}">Edit profile</a>
                 <a href="{% url 'password_change' %}">Change password</a>
             </div>
