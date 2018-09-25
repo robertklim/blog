@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
 
+from articles.models import Article
+
 class Profile(models.Model):
     user    = models.OneToOneField(User, on_delete=models.CASCADE)
     image   = models.ImageField(default='default_profile.jpg', upload_to='profile_images')
@@ -26,3 +28,7 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+    def sum_user_articles(self):
+        article_list = Article.objects.filter(author=self.user)
+        return len(article_list)
