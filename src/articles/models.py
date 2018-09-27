@@ -6,6 +6,8 @@ from django.db import models
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 
+from rest_framework.reverse import reverse as api_reverse
+
 User = settings.AUTH_USER_MODEL
 
 class Article(models.Model):
@@ -33,6 +35,9 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('articles:article-detail', kwargs={'slug': self.slug})
+
+    def get_api_url(self, request=None):
+        return api_reverse('api-articles:article-rud', kwargs={'pk': self.pk}, request=request)
 
     class Meta:
         ordering = ['-timestamp']
