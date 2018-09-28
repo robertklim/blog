@@ -7,5 +7,6 @@ from .views import (
 app_name = 'api-articles'
 
 urlpatterns = [
-    path('<int:pk>/', ArticleRudView.as_view(), name='article-rud'),
+    path('id/<int:pk>/', ArticleRudView.as_view(), name='article-id-rud'),
+    path('slug/<slug:slug>/', ArticleRudView.as_view(), name='article-slug-rud'),
 ]

@@ -37,7 +37,7 @@ class Article(models.Model):
         return reverse_lazy('articles:article-detail', kwargs={'slug': self.slug})
 
     def get_api_url(self, request=None):
-        return api_reverse('api-articles:article-rud', kwargs={'pk': self.pk}, request=request)
+        return api_reverse('api-articles:article-id-rud', kwargs={'pk': self.pk}, request=request)
 
     class Meta:
         ordering = ['-timestamp']
