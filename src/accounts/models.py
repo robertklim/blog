@@ -15,7 +15,7 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self, **kwargs):
+    def save(self, *args, **kwargs):
         try:
             old_profile_image = Profile.objects.get(pk=self.pk).image
         except Profile.DoesNotExist:
