@@ -15,9 +15,12 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self):
-        old_profile_image = Profile.objects.get(pk=self.pk).image
-        if (basename(old_profile_image.name) != basename(self.image.name) and basename(old_profile_image.name) != Profile._meta.get_field('image').default):
+    def save(self, **kwargs):
+        try:
+            old_profile_image = Profile.objects.get(pk=self.pk).image
+        except Profile.DoesNotExist:
+            old_profile_image = None
+        if (old_profile_image != None and basename(old_profile_image.name) != basename(self.image.name) and basename(old_profile_image.name) != Profile._meta.get_field('image').default):
             os.remove(os.path.join(settings.MEDIA_ROOT, old_profile_image.name))
 
         super().save()
