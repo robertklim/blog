@@ -13,20 +13,7 @@
             <p class="article-paragraph">{{ object.body }}</p>
             {% include 'snippets/tag_chip.html' with obj=object %}
             {% include 'snippets/author_chip.html' with obj=object %}
-            <p>
-                <ul class="collection">
-                    <li class="collection-header">
-                        <h5>Related articles:</h4>
-                    </li>
-                    {% for article in related_articles %}
-                        <li class="collection-item">
-                            <a href="{% url 'articles:article-detail' slug=article.slug %}">
-                                {{ article.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </p>
+            {% include 'snippets/related_articles_chip.html' %}
         </div>
         <div class="card-action" style="position: relative;">
             <a href="{% url 'articles:article-list' %}">Go back</a>
