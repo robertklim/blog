@@ -48,6 +48,12 @@ class ArticleDetailView(DetailView):
     def get_queryset(self):
         return Article.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article = Article.objects.get(slug=self.kwargs.get('slug'))
+        context['related_articles'] = article.tags.similar_objects()
+        return context
+
 class ArticleListView(ListView):
     paginate_by = 5
 
