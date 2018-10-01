@@ -30,10 +30,13 @@ class Article(models.Model):
         return self.body[:300] + '...'
 
     def save(self, *args, **kwargs):
-        old_thumbnail = Article.objects.get(pk=self.pk).thumbnail
-        if (basename(old_thumbnail.name) != basename(self.thumbnail.name) and basename(old_thumbnail.name) != Article._meta.get_field('thumbnail').default):
+        try:
+            old_thumbnail = Article.objects.get(pk=self.pk).thumbnail
+        except Article.DoesNotExist:
+            old_thumbnail = None
+        if (old_thumbnail != None and basename(old_thumbnail.name) != basename(self.thumbnail.name) and basename(old_thumbnail.name) != Article._meta.get_field('thumbnail').default):
             os.remove(os.path.join(settings.MEDIA_ROOT, old_thumbnail.name))
-        if self.slug is None:
+        if self.slug is None or self.slug == '':
             self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
 

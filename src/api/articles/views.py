@@ -1,6 +1,7 @@
 from articles.models import Article
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import (
+    CreateAPIView,
     ListAPIView,
     RetrieveUpdateDestroyAPIView,
 )
@@ -25,6 +26,15 @@ class MultipleFieldLookupMixin(object):
         self.check_object_permissions(self.request, obj)
         return obj
 
+class ArticleCreateAPIView(CreateAPIView):
+    lookup_field = 'pk'
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        return Article.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class ArticleListAPIView(ListAPIView):
     lookup_field = 'pk'
