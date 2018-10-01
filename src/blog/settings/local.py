@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'articles',
     'accounts.apps.AccountsConfig',
     'rest_framework',
+    'taggit',
     # 'accounts',
 ]
 

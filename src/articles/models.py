@@ -8,6 +8,8 @@ from django.utils.text import slugify
 
 from rest_framework.reverse import reverse as api_reverse
 
+from taggit.managers import TaggableManager
+
 User = settings.AUTH_USER_MODEL
 
 class Article(models.Model):
@@ -18,6 +20,7 @@ class Article(models.Model):
     updated     = models.DateTimeField(auto_now=True)
     thumbnail   = models.ImageField(default='default_thumbnail.jpg', blank=True, upload_to='thumbnail_images')
     author      = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    tags        = TaggableManager()
 
     def __str__(self):
         return self.title
