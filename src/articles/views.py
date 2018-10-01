@@ -15,6 +15,7 @@ from functools import reduce
 
 from .forms import ArticleCreateForm
 from .models import Article
+from taggit.models import Tag
 
 import operator
 
@@ -72,14 +73,6 @@ class ArticleSearchListView(ArticleListView):
         
         return result
 
-class UserArticleListView(ListView):
-    template_name = 'articles/user_article_list.html'
-    paginate_by = 5
-    
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Article.objects.filter(author=user)
-
 class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Article
     form_class = ArticleCreateForm
@@ -94,3 +87,21 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestM
 
     # def get_queryset(self):
     #     return Article.objects.filter(author=self.request.user)
+
+class ArticleTagListView(ListView):
+    paginate_by = 5
+
+    def get_queryset(self):
+        # tag_obj = Tag.objects.get(name__icontains=self.kwargs.get('tag'))
+        tag_obj = get_object_or_404(Tag, name__icontains=self.kwargs.get('tag'))
+        tagged = Article.objects.filter(tags=tag_obj)
+        return tagged
+
+class ArticleUserListView(ListView):
+    template_name = 'articles/article_user_list.html'
+    paginate_by = 5
+    
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Article.objects.filter(author=user)
+

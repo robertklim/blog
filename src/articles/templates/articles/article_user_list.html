@@ -15,6 +15,12 @@
         <div class="card-content">
             <p class="article-paragraph">{{ obj.snippet }}</p>
             {% include 'snippets/author_chip.html' %}
+            <p class="article-tags">
+                <br>
+                {% for tag in obj.tags.all %}
+                    <a href="{% url 'articles:article-tag-list' tag=tag.name %}">{{ tag.name }}</a>,
+                {% endfor %}
+            </p>
         </div>
         <div class="card-action">
             <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>

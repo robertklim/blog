@@ -18,7 +18,7 @@
                         E-mail: {{ user.email }}
                     </li>
                     <li class="collection-item">
-                        Number of your articles: <a href="{% url 'articles:user-article-list' username=user.username %}">{{user.profile.sum_user_articles }}</a>
+                        Number of your articles: <a href="{% url 'articles:article-user-list' username=user.username %}">{{user.profile.sum_user_articles }}</a>
                     </li>
                 </ul>
             </div>

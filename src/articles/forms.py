@@ -9,6 +9,7 @@ class ArticleCreateForm(ModelForm):
             'title',
             'slug',
             'body',
+            'tags',
             'thumbnail',
         ]
         widgets = {
