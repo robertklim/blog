@@ -4,6 +4,7 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
 )
 
+from .permissions import IsOwnerOrReadOnly
 from .serializers import ArticleSerializer
 
 class MultipleFieldLookupMixin(object):
@@ -27,6 +28,7 @@ class MultipleFieldLookupMixin(object):
 class ArticleRudView(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
     lookup_fields = ('pk', 'slug')
     serializer_class = ArticleSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         return Article.objects.all()

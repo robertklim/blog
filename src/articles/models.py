@@ -22,6 +22,10 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def owner(self):
+        return self.author
+
     def snippet(self):
         return self.body[:300] + '...'
 
