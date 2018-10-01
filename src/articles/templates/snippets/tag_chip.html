@@ -1,0 +1,7 @@
+<p class="article-tags">
+    {% for tag in obj.tags.all %}
+        <div class="chip">
+            <a href="{% url 'articles:article-tag-list' tag=tag.name %}">{{ tag.name }}</a>
+        </div>
+    {% endfor %}
+</p>

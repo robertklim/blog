@@ -11,12 +11,7 @@
         </div>
         <div class="card-content">
             <p class="article-paragraph">{{ object.body }}</p>
-            <p class="article-tags">
-                <br>
-                {% for tag in object.tags.all %}
-                    <a href="{% url 'articles:article-tag-list' tag=tag.name %}">{{ tag.name }}</a>,
-                {% endfor %}
-            </p>
+            {% include 'snippets/tag_chip.html' with obj=object %}
             {% include 'snippets/author_chip.html' with obj=object %}
             <p>
                 <ul class="collection">
