@@ -1,6 +1,7 @@
 from articles.models import Article
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import (
+    ListAPIView,
     RetrieveUpdateDestroyAPIView,
 )
 
@@ -25,7 +26,14 @@ class MultipleFieldLookupMixin(object):
         return obj
 
 
-class ArticleRudView(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
+class ArticleListAPIView(ListAPIView):
+    lookup_field = 'pk'
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        return Article.objects.all()
+
+class ArticleRudAPIView(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
     lookup_fields = ('pk', 'slug')
     serializer_class = ArticleSerializer
     permission_classes = [IsOwnerOrReadOnly]
