@@ -3,3 +3,4 @@ Pillow
 djangorestframework
 djangorestframework-jwt
 django-taggit
+nltk
