@@ -27,6 +27,24 @@ main {
     background-size: cover;
 }
 
+.thumbnail-related {
+    position: absolute;
+    width: auto;
+    height: 42px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
+    vertical-align: middle
+}
+
+.collection .collection-item.avatar {
+    padding-left: 140px;
+}
+
+.related-articles .collection-header h5 {
+    margin-left: 15px;
+}
+
 .body-textarea {
     height: 20vh;
     max-width: 100%;

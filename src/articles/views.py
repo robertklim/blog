@@ -51,7 +51,8 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = Article.objects.get(slug=self.kwargs.get('slug'))
-        context['related_articles'] = article.tags.similar_objects()
+        context['related_articles'] = article.tags.similar_objects()[:3]
+        print(context['related_articles'])
         return context
 
 class ArticleListView(ListView):
