@@ -35,10 +35,13 @@
                 <li><a href="{% url 'accounts:account-create' %}"><i class="material-icons left">person_add</i>Register</a></li>
             {% endif %}
             <li>
-                <div class="input-field s6 s12">
-                    <i class="material-icons prefix">search</i>
-                    <input type="text" id="autocomplete-input" placeholder="search..." class="autocomplete">
-                </div>
+                <form action="{% url 'articles:article-search-form' %}" method="get">
+                    <div class="input-field s6 s12">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="autocomplete-input" name="q" placeholder="search..." class="autocomplete">
+                        <input type="submit" style="position: absolute; left: -9999px" />
+                    </div>
+                </form>
             </li>
         </ul>
     </div>
