@@ -48,10 +48,13 @@ class ArticleGetKeywordsAPIView(APIView):
     def get(self, request, format=None):
         articles = Article.objects.all()
         text, text_cleared = '', ''
+        authors = []
 
         for article in articles:
             text += article.body + ' '
-
+            if (article.author.username, article.author.profile.image.url) not in authors:
+                authors.append((article.author.username, article.author.profile.image.url))
+        
         text = text.lower()
         
         tokenizer = RegexpTokenizer(r'\w+')
@@ -61,7 +64,11 @@ class ArticleGetKeywordsAPIView(APIView):
         filtered_text = [w for w in word_tokens if not w in stop_words]
 
         res = Counter(filtered_text).most_common(10)
-        
+
+        res = res + authors
+
+        print(res)
+
         return Response(res)
 
 class ArticleListAPIView(ListAPIView):

@@ -8,7 +8,11 @@ fetch(keywords_endpoint)
     })
     .then(function (myJson) {
         for (let i=0; i < myJson.length; i++) {
-            autocomplete_keywords[myJson[i][0]] = null;
+            if (isNaN(myJson[i][0])) {
+                autocomplete_keywords[myJson[i][0]] = myJson[i][1];
+            } else {
+                autocomplete_keywords[myJson[i][0]] = null;
+            }
         }
     });
 
@@ -20,5 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
             location.href = search_endpoint + val;
         },
     }
+    console.log(options.data)
     var instances = M.Autocomplete.init(elems, options);
 });

@@ -75,7 +75,9 @@ class ArticleSearchListView(ArticleListView):
                 reduce(operator.and_,
                        (Q(title__icontains=q) for q in query_list)) |
                 reduce(operator.and_,
-                       (Q(body__icontains=q) for q in query_list))
+                       (Q(body__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Q(author__username__icontains=q) for q in query_list))
             )
         
         return result
