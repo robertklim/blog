@@ -30,7 +30,6 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         instance.author = self.request.user
         return super(ArticleCreateView, self).form_valid(form)
 
-
 class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('articles:article-list')
@@ -41,9 +40,6 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-    # def get_queryset(self):
-    #     return Article.objects.filter(author=self.request.user)
-
 class ArticleDetailView(DetailView):
     def get_queryset(self):
         return Article.objects.all()
@@ -52,7 +48,6 @@ class ArticleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         article = Article.objects.get(slug=self.kwargs.get('slug'))
         context['related_articles'] = article.tags.similar_objects()[:3]
-        print(context['related_articles'])
         return context
 
 class ArticleListView(ListView):

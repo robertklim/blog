@@ -43,6 +43,11 @@ class Article(models.Model):
             self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if basename(self.thumbnail.name) != Article._meta.get_field('thumbnail').default:
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.thumbnail.name))
+        super(Article, self).delete(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse_lazy('articles:article-detail', kwargs={'slug': self.slug})
 
