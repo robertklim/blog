@@ -51,7 +51,7 @@ class ArticleDetailView(DetailView):
         return context
 
 class ArticleListView(ListView):
-    paginate_by = 5
+    paginate_by = 6
 
     def get_queryset(self):
         return Article.objects.all()
@@ -94,7 +94,7 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestM
     #     return Article.objects.filter(author=self.request.user)
 
 class ArticleTagListView(ListView):
-    paginate_by = 5
+    paginate_by = 6
 
     def get_queryset(self):
         # tag_obj = Tag.objects.get(name__icontains=self.kwargs.get('tag'))
@@ -103,8 +103,8 @@ class ArticleTagListView(ListView):
         return tagged
 
 class ArticleUserListView(ListView):
-    template_name = 'articles/article_user_list.html'
-    paginate_by = 5
+    template_name = 'articles/article_list.html'
+    paginate_by = 6
     
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))

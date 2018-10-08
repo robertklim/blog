@@ -1,25 +1,41 @@
 {% extends 'base.html' %} {% block content %}
-
+<div class="row">
+    <div class="col s12">
+        {% if view.kwargs.username %}
+            <h5>Articles written by: {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h5>
+        {% endif %}
+        {% if view.kwargs.tag %}
+            <h5>Articles tagged: {{ view.kwargs.tag }} ({{ page_obj.paginator.count }})</h5>
+        {% endif %}
+        {% if request.GET.q %}
+            <h5>Search results for: {{ request.GET.q }} ({{ page_obj.paginator.count }})</h5>
+        {% endif %}
+    </div>
+</div>
 <div class="articles">
-    {% for obj in object_list %}
-        <div class="card">
-            <div class="card-image">
-                <div class="thumbnail" style="background-image: url('{{ obj.thumbnail.url }}')">
-                    <span class="card-title">
-                        {{ obj.title }}
-                    </span>
+    <div class="row">
+        {% for obj in object_list %}
+            <div class="col s12 l6">
+                <div class="card">
+                    <div class="card-image">
+                        <div class="thumbnail" style="background-image: url('{{ obj.thumbnail.url }}')">
+                            <span class="card-title">
+                                {{ obj.title }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="article-paragraph truncate">{{ obj.snippet }}</p>
+                        {% include 'snippets/tag_chip.html' %}
+                        {% include 'snippets/author_chip.html' %}
+                    </div>
+                    <div class="card-action">
+                        <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>
+                    </div>
                 </div>
             </div>
-            <div class="card-content">
-                <p class="article-paragraph">{{ obj.snippet }}</p>
-                {% include 'snippets/tag_chip.html' %}
-                {% include 'snippets/author_chip.html' %}
-            </div>
-            <div class="card-action">
-                <a href="{% url 'articles:article-detail' slug=obj.slug %}">Read more</a>
-            </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
     {% if is_paginated %}
         {% include 'snippets/pagination.html' %}
     {% endif %}

@@ -1,28 +1,32 @@
 {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-        <div class="card 
-            {% if message.tags == 'debug' %} 
-                brown 
-            {% elif message.tags == 'info' %}
-                blue
-            {% elif message.tags == 'success' %} 
-                green
-            {% elif message.tags == 'warning' %} 
-                orange
-            {% elif message.tags == 'error' %} 
-                red
-            {% endif %}
-        ">
-            <div class="card-content white-text">
-                <span class="card-title">
-                    {{ message.tags }}
-                </span>
-                <p>
-                    {{ message }}
-                </p>
+<div class="row">
+    <div class="col s12">
+        <div class="messages">
+            {% for message in messages %}
+            <div class="card 
+                    {% if message.tags == 'debug' %} 
+                        brown 
+                    {% elif message.tags == 'info' %}
+                        blue
+                    {% elif message.tags == 'success' %} 
+                        green
+                    {% elif message.tags == 'warning' %} 
+                        orange
+                    {% elif message.tags == 'error' %} 
+                        red
+                    {% endif %}
+                ">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        {{ message.tags }}
+                    </span>
+                    <p>
+                        {{ message }}
+                    </p>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
+</div>
 {% endif %}

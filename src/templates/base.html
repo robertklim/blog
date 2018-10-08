@@ -11,12 +11,10 @@
     <header>
         {% include 'snippets/nav.html' %}
     </header>
-    <main>
-        <div class="container">
-            {% include 'snippets/messages.html' %}
-            {% block content %}{% endblock content %}
-        </div>
-    </main>
+    <div class="container">
+        {% include 'snippets/messages.html' %}
+        {% block content %}{% endblock content %}
+    </div>
     {% include 'snippets/footer.html' %}
     {% include 'snippets/js.html' %}
 </body>
