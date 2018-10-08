@@ -48,12 +48,15 @@ class ArticleGetKeywordsAPIView(APIView):
     def get(self, request, format=None):
         articles = Article.objects.all()
         text, text_cleared = '', ''
-        authors = []
+        authors, tags = [], []
 
         for article in articles:
             text += article.body + ' ' + article.title + ' '
             if (article.author.username, article.author.profile.image.url) not in authors:
                 authors.append((article.author.username, article.author.profile.image.url))
+            for tag in article.tags.names():
+                if (tag, 1) not in tags:
+                    tags.append((tag, 1))
         
         text = text.lower()
         
@@ -66,7 +69,7 @@ class ArticleGetKeywordsAPIView(APIView):
 
         res = Counter(filtered_text).most_common(10)
 
-        res = res + authors
+        res = res + authors + tags
 
         return Response(res)
 
