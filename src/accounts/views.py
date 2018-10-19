@@ -43,6 +43,27 @@ class AccountProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {})
 
+class AccountUpdateView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        acc_form = AccountUpdateForm(instance=request.user)
+        prof_form = ProfileUpdateForm(instance=request.user.profile)
+
+        context = {
+            'acc_form': acc_form,
+            'prof_form': prof_form,
+        }
+
+        return render(request, 'accounts/account_update_form.html', context)
+
+    def post(self, request, *args, **kwargs):
+        acc_form = AccountUpdateForm(request.POST, instance=request.user)
+        prof_form = ProfileUpdateForm(request.POST, request.FILES,  instance=request.user.profile)
+        if acc_form.is_valid() and prof_form.is_valid():
+            acc_form.save()
+            prof_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('accounts:account-profile')
+
 class AccountLoginView(LoginView):
     template_name = 'accounts/account_login_form.html'
 
@@ -67,24 +88,24 @@ class AccountPasswordResetDoneView(PasswordResetDoneView):
 class AccountPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'accounts/password_reset_confirm.html'
 
-@login_required
-def profile_edit(request):
-    if request.method == 'POST':
-        acc_form = AccountUpdateForm(request.POST, instance=request.user)
-        prof_form = ProfileUpdateForm(request.POST, request.FILES,  instance=request.user.profile)
-        if acc_form.is_valid() and prof_form.is_valid():
-            acc_form.save()
-            prof_form.save()
-            messages.success(request, f'Your account has been updated!')
-            return redirect('accounts:account-profile')
-    else:
-        acc_form = AccountUpdateForm(instance=request.user)
-        prof_form = ProfileUpdateForm(instance=request.user.profile)
+# @login_required
+# def profile_edit(request):
+#     if request.method == 'POST':
+#         acc_form = AccountUpdateForm(request.POST, instance=request.user)
+#         prof_form = ProfileUpdateForm(request.POST, request.FILES,  instance=request.user.profile)
+#         if acc_form.is_valid() and prof_form.is_valid():
+#             acc_form.save()
+#             prof_form.save()
+#             messages.success(request, f'Your account has been updated!')
+#             return redirect('accounts:account-profile')
+#     else:
+#         acc_form = AccountUpdateForm(instance=request.user)
+#         prof_form = ProfileUpdateForm(instance=request.user.profile)
 
-    context = {
-        'acc_form': acc_form,
-        'prof_form': prof_form,
-    }
+#     context = {
+#         'acc_form': acc_form,
+#         'prof_form': prof_form,
+#     }
 
-    return render(request, 'accounts/account_update_form.html', context)
+#     return render(request, 'accounts/account_update_form.html', context)
 
